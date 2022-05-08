@@ -1,0 +1,29 @@
+{% extends 'store/base.html' %}
+{% load static %}
+{% block title %} Product details {% endblock title %}
+
+{% block content %}
+<div class="container">
+    <div class="row my-5">
+
+            <div class="col-md-4 offset-1 mt-5 " id="product_detail" data-tilt>
+                <img src="{{product.prod_img.url}}" style="height:18rem;" class="mx-auto">
+            </div>
+      
+        <div class="col-md-4 offset-1">
+            <h1 class="my-5">Product: {{product.name}}</h1>
+            <p class=" fw-bolder">Price: ₹ {{product.discount_price}} <span
+                    class="fw-light text-danger text-decoration-line-through"> ₹ {{product.price}} </span></p>
+            <p>Description: {{product.description}}</p>
+            <h2 class="fw-bloder">Other Offer Details</h2>
+            <ul>
+                <li>Get 20-30% off</li>
+                <li>Get exiting deals</li>
+            </ul>
+        </div>
+
+
+    </div>
+</div>
+
+{% endblock content %}

@@ -1,0 +1,48 @@
+{% extends 'store/base.html' %}
+{% load static %}
+{% block title %} Sign Up {% endblock title %}
+
+{% block content %}
+<div class="container">
+    <div class="row my-4">
+        <div class="col-md-6 mx-auto">
+            <h3 class="alert alert-info text-center">Signup here</h3>
+            {% include 'store/mess.html' %}
+            <form action="{% url 'signup' %}" class="border p-4" method="POST">
+                {% csrf_token %}
+                <div class="mb-3">
+                    <label for="first_name" class="form-label">First Name</label>
+                    <input name="first_name" type="text" class="form-control form-control-sm"  id="first_name" required>
+                </div>
+                <div class="mb-3">
+                    <label for="last_name" class="form-label">Last Name</label>
+                    <input name="last_name" type="text" class="form-control form-control-sm" id="last_name" required>
+                </div>
+                <div class="mb-3">
+                    <label for="username" class="form-label">Username</label>
+                    <input name="username" type="text" class="form-control form-control-sm" id="username" required>
+                </div>
+                <div class="mb-3">
+                    <label for="email" class="form-label">Email</label>
+                    <input name="email" type="email" class="form-control form-control-sm" id="email" required>
+                </div>
+                <div class="mb-3">
+                    <label for="contact_num" class="form-label">Phone</label>
+                    <input name="contact_num" type="number" class="form-control form-control-sm" id="contact_num" pattern="[789][0-9]{9}" required>
+                </div>
+                <div class="mb-3">
+                    <label for="password1" class="form-label">Password</label>
+                    <input placeholder="********" name="password1" type="password" class="form-control form-control-sm" id="password1" required>
+                </div>
+                <div class="mb-3">
+                    <label for="password2" class="form-label">Confirm Password</label>
+                    <input placeholder="Re-enter password" name="password2" type="password" class="form-control form-control-sm" id="password2" required>
+                </div>
+                <div class="mb-3">
+                    <input type="submit" value="Create Account" class="btn btn-info">
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock content %}

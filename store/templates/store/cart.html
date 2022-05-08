@@ -1,0 +1,92 @@
+{% extends 'store/base.html' %}
+{% load static %}
+{% load cart %}
+{% block title %} Cart Products {% endblock title %}
+
+
+{% block content %}
+<div class="container">
+    <div class="row my-5">
+
+        <div class="border rounded p-4 m-4">
+            <p class="display-4" >Your Cart</p>
+            {% if products|length < 1 %}
+            <h1>No items added in your cart</h1>
+            {% else %}
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th scope="col">Sr.No</th>
+                        <th scope="col">Product Image</th>
+                        <th scope="col">Product</th>
+                        <th scope="col">Price</th>
+                        <th scope="col">Quantity</th>
+                        <th scope="col">Total</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for product in products %}
+                    <tr>
+                        <th>{{forloop.counter}}</th>
+                        <td><img class="rounded-circle" src="{{product.prod_img.url}}" style="height: 6rem;"></td>
+                        <td>{{product.name}}</td>
+                        <td>₹{{product.price}}</td>
+                        <td>{{product|cart_quantity:request.session.cart}}</td>
+                        <td>₹{{product|price_total:request.session.cart}}</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+                <tfoot>
+                    <tr>
+                        <th colspan="4">Total</th>
+                        <th>₹{{products|cart_total:request.session.cart}}</th>
+                    </tr>
+                </tfoot>
+            </table>
+            <div class="m-3 p-3">
+                <a href="#"  data-bs-toggle="modal" data-bs-target="#exampleModal"  class="btn btn-outline-info border rounded col-lg-2 float-end" >Check Out</a>
+            </div>
+
+            {% endif %}
+
+            <!-- Button trigger modal -->
+
+  
+  <!-- Modal -->
+  <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Check out form</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+         <div class="m-2 p-2">
+           <form action="/check_out" method="POST">
+              {% csrf_token %}
+              <form>
+                <div class="mb-3">
+                  <label for="address" class="form-label">Address:</label>
+                  <input type="text" name="address" class="form-control" id="address" >
+                </div>
+                <div class="mb-3">
+                  <label for="phone" class="form-label">Phone</label>
+                  <input type="text" name="phone" class="form-control" id="phone">
+                </div>
+               
+                <button type="submit" class="btn btn-secondary float-end">Submit</button>
+              </form>             
+           </form>
+         </div>
+        </div>
+        
+      </div>
+    </div>
+  </div>
+
+        </div>
+
+    </div>
+</div>
+
+{% endblock content %}

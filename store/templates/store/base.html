@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>E-shop |{% block title %} {% endblock title %}</title>
+    <link rel="stylesheet" href="{% static 'store/css/bootstrap.min.css' %}">
+    <link rel="stylesheet" href="{% static 'store/css/owl.carousel.min.css' %}">
+    <link rel="stylesheet" href="{% static 'store/css/all.min.css' %}">
+    <link rel="stylesheet" href="{% static 'store/css/style.css' %}">
+    <link rel="stylesheet" href="{% static 'store/css/written.css' %}">
+</head>
+<body>
+    
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark py-4">
+        <div class="container-fluid">
+          <a class="navbar-brand" href="{% url 'home' %}" style="font-size:2rem;" >E-shop</a>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+          <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav  mb-2 mb-lg-0" style="font-size:1.5rem;">
+              
+              <li class="nav-item">
+                <a class="nav-link" href="{% url 'home' %}">Home</a>
+              </li>
+              <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                  Products
+                </a>
+                <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                  <li><a class="dropdown-item" href="{% url 'clothes' %}">Clothes</a></li>
+                  <li><hr class="dropdown-divider"></li>
+                  <li><a class="dropdown-item" href="{% url 'vegetable' %}">Vegetables</a></li>
+                  <li><hr class="dropdown-divider"></li>
+                  <li><a class="dropdown-item" href="{% url 'mobiles' %}">Mobiles</a></li>
+                </ul>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="{% url 'cart' %}">Carts</a>
+              </li>
+              {% if request.user.is_authenticated %}
+              
+              <li class="nav-item ">
+                <a class="nav-link" href="{% url 'signout' %}">Sign-out</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="">Hello {{user.username}}</a>
+              </li>
+              {% else %}
+              <li class="nav-item">
+                <a class="nav-link" href="{% url 'signup' %}">Sign-up</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="{% url 'signin' %}">Sign-in</a>
+              </li>
+              
+              {% endif %}
+            </ul>
+           
+          </div>
+        </div>
+      </nav>
+
+      {% block content %} {% endblock content %}
+
+      <footer id="footer" class="bg-dark">
+        <div class="row py-3">
+          <div class="col text-white text-center">
+            <p class="mx-5">Copy-rights @2022 all rights reserved
+          
+              <span class="mx-3"><a style="color:#fff;font-size: 1.2rem;" href=""><i class="fab fa-facebook"></i></a></span>
+              <span class="mx-3"><a style="color:#fff;font-size: 1.2rem;" href=""><i class="fab fa-instagram-square"></i></a></span>
+              <span class="mx-3"><a style="color:#fff;font-size: 1.2rem;" href=""><i class="fab fa-twitter-square"></i></a></span>
+            </p>
+          </div>
+        </div>
+      </footer>
+
+    <script src="{% static 'store/js/jquery.js' %}"></script>
+    <script src="{% static 'store/js/bootstrap.bundle.min.js' %}"></script>
+    <script src="{% static 'store/js/owl.carousel.min.js' %}"></script>
+    <script src="{% static 'store/js/vanilla.js' %}"></script>
+    <script src="{% static 'store/js/all.min.js' %}"></script>
+    <script src="{% static 'store/js/myscript.js' %}"></script>
+</body>
+</html>

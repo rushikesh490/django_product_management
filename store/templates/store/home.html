@@ -1,0 +1,65 @@
+{% extends 'store/base.html' %}
+{% load static %}
+{% block title %} Home {% endblock title %}
+
+{% block content %}
+
+<div class="container-fluid">
+  <div class="row" id="banner">
+    <div class="banner-title">
+      <p class="mb-0">Welcome to E-shop</p>
+      <p class="mt-0">Get 30-40% off/</p>
+    </div>
+  </div>
+
+  <div class="row my-5" id="sliders">
+    <!-- 1st Product Slider -->
+    <div class="m-3">
+      <h2>E-shops Mens Wears</h2>
+      <!-- Slider 1 -->
+      <div class="owl-carousel shadow" id="slider1">
+        {% for TWM in TWMS %}
+        <a href="#" class="btn">
+          <div class="item shadow bg-light"><img src="{{TWM.prod_img.url}}" alt="" height="350px"><span
+              class="fw-bold">{{TWM.name}}</span><br><span class="fs-5">₹ {{TWM.price}} </span></div>
+        </a>
+        {% endfor %}
+      </div>
+    </div>
+    <!-- End 1st Product Slider -->
+
+     <!-- 2nd Product Slider -->
+     <div class="m-3">
+      <h2>E-shops Womens Wears</h2>
+      <!-- Slider 2 -->
+      <div class="owl-carousel shadow" id="slider2">
+        {% for TWW in TWWS %}
+        <a href="#" class="btn">
+          <div class="item shadow bg-light"><img src="{{TWW.prod_img.url}}" alt="" height="350px"><span
+              class="fw-bold">{{TWW.name}}</span><br><span class="fs-5">₹ {{TWW.price}} </span></div>
+        </a>
+        {% endfor %}
+      </div>
+    </div>
+    <!-- End 2nd Product Slider -->
+
+     <!-- 3rd Product Slider -->
+     <div class="m-3">
+      <h2>E-shops Mobile Products</h2>
+      <!-- Slider 2 -->
+      <div class="owl-carousel shadow" id="slider3">
+        {% for mobile in mobiles %}
+        <a href="" class="btn">
+          <div class="item shadow bg-light"><img src="{{mobile.prod_img.url}}" alt="" height="340px"><span
+              class="fw-bold">{{mobile.name}}</span><br><span class="fs-5">₹ {{mobile.price}} </span></div>
+        </a>
+        {% endfor %}
+      </div>
+    </div>
+    <!-- End 3rs Product Slider -->
+
+
+  </div>
+</div>
+
+{% endblock content %}

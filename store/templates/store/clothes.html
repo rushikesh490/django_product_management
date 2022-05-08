@@ -1,0 +1,83 @@
+{% extends 'store/base.html' %}
+{% load static %}
+{% load cart %}
+
+{% block title %} Mens Weares {% endblock title %}
+
+{% block content %}
+
+<div class="container-fluid">
+  <div class="row">
+
+    <div class="col-md-3 my-5 ">
+      <ul class="list-group">
+        <a class="text-decoration-none" href="{% url 'clothes' %}">
+          <li class="list-group-item">All Products</li>
+        </a>
+        <a class="text-decoration-none" href="{% url 'clothes' 'MensTop' %}">
+          <li class="list-group-item">Top Weares for Mens</li>
+        </a>
+        <a class="text-decoration-none" href="{% url 'clothes' 'MensBottom'  %}">
+          <li class="list-group-item">Bottom Weares for Mens</li>
+        </a>
+        <a class="text-decoration-none" href="{% url 'clothes' 'WomensTop' %}">
+          <li class="list-group-item">Top Weares for Womens</li>
+        </a>
+        <a class="text-decoration-none" href="{% url 'clothes' 'WomensBottom' %}">
+          <li class="list-group-item">Bottom Weares for Womens</li>
+        </a>
+      </ul>
+    </div>
+
+    <div class="col-md-9 my-2">
+      <div class="container-fluid">
+        <div class="row">
+
+          {% for product in products %}
+          <div class="col-md-5 m-4" id="clothes">
+            <a href="{%  url 'product_detail' product.id %}" class="card m-3  mx-auto shadow text-decoration-none text-dark" id="{{product.id}}" style="width: 18rem;">
+              <img src="{{product.prod_img.url}}" class="card-img-top" style=" height:18rem;" alt="...">
+              <div class="card-body">
+                <h5 class="card-title">{{product.name}}</h5>
+                <p class="card-text fw-bolder">₹ {{product.discount_price}} <span
+                    class="fw-light text-danger text-decoration-line-through">₹ {{product.price}} </span></p>
+                {% if product|is_in_cart:request.session.cart %}
+                
+                <div class="cart-footer p-0 row no-gutters">
+                  <form action="{% url 'clothes' %}" method="POST" class="col-2">
+                    {% csrf_token %}
+                    <input type="hidden" name="product" value="{{product.id}}">
+                    <input type="hidden" name="remove" value="True">
+                    <input type="submit" value="-" class="btn btn-block btn-secondary">
+                  </form>
+                  <div class="text-center col">{{product|cart_quantity:request.session.cart}} in Cart</div>
+                  <form action="{% url 'clothes' %}" method="POST" class="col-2">
+                    {% csrf_token %}
+                    <input type="hidden" name="product" value="{{product.id}}">
+                    <input type="submit" value="+" class="btn btn-block btn-secondary">
+                  </form>
+                </div>
+                
+                {% else %}
+                  
+                  <div class="cart-footer p-0 row no-gutters">
+                    <form action="{% url 'clothes' %}" method="POST" class="btn-block">
+                      {% csrf_token %}
+                      <input type="hidden" name="product" value="{{product.id}}">
+                      <input type="submit" value="Add to cart" class="btn btn-secondary form-control">
+                    </form>
+                  </div>
+                {% endif %}
+              </div>
+            </a>
+          </div>
+          {% endfor %}
+
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+{% endblock content %}
